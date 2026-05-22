@@ -6,7 +6,7 @@ spring:
     active: test
 
   config:
-    import: optional:classpath:application-secret.yml
+    import: optional:classpath:application-secret.yaml
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
