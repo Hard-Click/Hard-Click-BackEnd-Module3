@@ -41,7 +41,10 @@ import org.springframework.http.HttpStatus;
         REVIEW_ALREADY_EXISTS(HttpStatus.CONFLICT, "R001", "이미 리뷰를 작성한 강의입니다."),
         REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "R002", "존재하지 않는 리뷰입니다."),
         REVIEW_NOT_AUTHORIZED(HttpStatus.FORBIDDEN, "R003", "본인의 리뷰만 수정/삭제할 수 있습니다."),
-        NOT_ENROLLED(HttpStatus.FORBIDDEN, "R004", "수강 중인 강의만 리뷰를 작성할 수 있습니다.");
+        NOT_ENROLLED(HttpStatus.FORBIDDEN, "R004", "수강 중인 강의만 리뷰를 작성할 수 있습니다."),
+
+        // 5. 수강신청(Enrollment) 예외
+        ENROLLMENT_ALREADY_EXISTS(HttpStatus.CONFLICT, "EN001", "이미 수강 중인 강의입니다.");
 
         private final HttpStatus status;
         private final String code;
