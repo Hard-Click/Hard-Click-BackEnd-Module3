@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
         // 에러가 난 필드와 원인을 Map에 담습니다
         Map<String, Object> details = new HashMap<>();
         e.getBindingResult().getFieldErrors().forEach(error ->
-                details.putIfAbsent(error.getField(), error.getDefaultMessage())
+                details.put(error.getField(), error.getDefaultMessage())
         );
 
         log.warn("[Validation Error] Path: {}, Message: 클라이언트 입력값 오류", request.getRequestURI());
@@ -42,26 +42,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * [2차 방어선] 도메인 규칙 위반 예외 처리
-     * 도메인 모델(Course 등)이 던지는 IllegalArgumentException (WARN 레벨)
-     */
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(
-            IllegalArgumentException e,
-            HttpServletRequest request) {
-
-        log.warn("[Domain Validation Error] Path: {}, Message: {}", request.getRequestURI(), e.getMessage());
-
-        ErrorResponse response = ErrorResponse.create()
-                .errorCode(ErrorCode.INVALID_INPUT_VALUE.getCode())
-                .message(e.getMessage())
-                .path(request.getRequestURI());
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-    }
-
-    /**
-     * [3차 방어선] 비즈니스 로직 예외 처리
+     * [2차 방어선] 비즈니스 로직 예외 처리
      * throw new BusinessException(...) 으로 던진 예외 (WARN 레벨)
      */
     @ExceptionHandler(BusinessException.class)
