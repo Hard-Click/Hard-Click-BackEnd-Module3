@@ -27,7 +27,7 @@ public class UpdatePasswordService implements UpdatePasswordUseCase {
 
         // 2. 현재 비밀번호 일치 여부 확인
         if (!passwordEncoder.matches(request.getCurrentPassword(), member.getPassword())) {
-            throw new BusinessException(ErrorCode.INVALID_PASSWORD); // (현재 비번 틀림)
+            throw new BusinessException(ErrorCode.INVALID_CURRENT_PASSWORD);
         }
 
         // 3. 새 비밀번호와 확인 값 일치 여부 확인

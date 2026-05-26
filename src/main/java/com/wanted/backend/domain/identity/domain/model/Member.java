@@ -66,12 +66,6 @@ public class Member {
                 now, now
         );
     }
-    public void changePassword(String encodedPassword) {
-        this.password = encodedPassword;
-        this.isPasswordChangeRequired = false; // 임시비번 상태 해제
-        this.updatedAt = LocalDateTime.now();
-    }
-
 
     public static Member restore(Long id, String username, String email, String password, String name, String gender,
                                  LocalDate birthDate, String phoneNumber, String profileImageUrl, Role role,
@@ -122,17 +116,6 @@ public class Member {
         List<DomainEvent> events = new ArrayList<>(this.domainEvents);
         this.domainEvents.clear();
         return Collections.unmodifiableList(events);
-    }
-
-    public static Member create(String username, String email, String password, String name,
-                                String gender, LocalDate birthDate, String phoneNumber,
-                                String profileImageUrl, Role role) {
-        LocalDateTime now = LocalDateTime.now();
-        return new Member(
-                null, username, email, password, name, gender, birthDate, phoneNumber,
-                profileImageUrl, role, MemberStatus.ACTIVE, false, 0, false, null, null,
-                now, now
-        );
     }
 
     // Getter들... (기존과 동일)
