@@ -11,13 +11,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(
-        name = "enrollments",
-        uniqueConstraints = @UniqueConstraint(
-                name = "uk_enrollment_member_course",
-                columnNames = {"member_id", "course_id"}
-        )
-)
+@Table(name = "enrollments")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class EnrollmentJpaEntity {
