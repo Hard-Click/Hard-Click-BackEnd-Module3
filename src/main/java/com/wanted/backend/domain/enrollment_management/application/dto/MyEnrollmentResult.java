@@ -2,7 +2,7 @@ package com.wanted.backend.domain.enrollment_management.application.dto;
 
 import com.wanted.backend.domain.enrollment_management.domain.model.EnrollmentStatus;
 
-import java.time.Instant;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record MyEnrollmentResult(
@@ -10,7 +10,7 @@ public record MyEnrollmentResult(
         Long courseId,
         String courseTitle,
         EnrollmentStatus status,
-        Instant enrolledAt,
+        BigDecimal progressRate,
         LocalDateTime expiredAt,
-        int progressPercent
+        LocalDateTime createdAt
 ) {}

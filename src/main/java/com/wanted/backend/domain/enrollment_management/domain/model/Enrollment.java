@@ -1,6 +1,6 @@
 package com.wanted.backend.domain.enrollment_management.domain.model;
 
-import java.time.Instant;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class Enrollment {
@@ -8,30 +8,37 @@ public class Enrollment {
     private Long id;
     private Long userId;
     private Long courseId;
-    private Instant enrolledAt;
+    private String paymentType;
     private EnrollmentStatus status;
+    private BigDecimal progressRate;
     private LocalDateTime expiredAt;
+    private LocalDateTime createdAt;
 
     private Enrollment() {}
 
-    public static Enrollment create(Long userId, Long courseId, Instant now) {
+    public static Enrollment create(Long userId, Long courseId, String paymentType, LocalDateTime now) {
         Enrollment enrollment = new Enrollment();
         enrollment.userId = userId;
         enrollment.courseId = courseId;
-        enrollment.enrolledAt = now;
+        enrollment.paymentType = paymentType;
         enrollment.status = EnrollmentStatus.IN_PROGRESS;
+        enrollment.progressRate = BigDecimal.ZERO;
+        enrollment.createdAt = now;
         return enrollment;
     }
 
-    public static Enrollment restore(Long id, Long userId, Long courseId, Instant enrolledAt,
-                                     EnrollmentStatus status, LocalDateTime expiredAt) {
+    public static Enrollment restore(Long id, Long userId, Long courseId, String paymentType,
+                                     EnrollmentStatus status, BigDecimal progressRate,
+                                     LocalDateTime expiredAt, LocalDateTime createdAt) {
         Enrollment enrollment = new Enrollment();
         enrollment.id = id;
         enrollment.userId = userId;
         enrollment.courseId = courseId;
-        enrollment.enrolledAt = enrolledAt;
+        enrollment.paymentType = paymentType;
         enrollment.status = status;
+        enrollment.progressRate = progressRate;
         enrollment.expiredAt = expiredAt;
+        enrollment.createdAt = createdAt;
         return enrollment;
     }
 
@@ -50,7 +57,9 @@ public class Enrollment {
     public Long getId() { return id; }
     public Long getUserId() { return userId; }
     public Long getCourseId() { return courseId; }
-    public Instant getEnrolledAt() { return enrolledAt; }
+    public String getPaymentType() { return paymentType; }
     public EnrollmentStatus getStatus() { return status; }
+    public BigDecimal getProgressRate() { return progressRate; }
     public LocalDateTime getExpiredAt() { return expiredAt; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
 }

@@ -30,9 +30,9 @@ public class GetMyEnrollmentsService implements GetMyEnrollmentsUseCase {
                         e.getCourseId(),
                         courseInfoQueryPort.getCourseTitle(e.getCourseId()),
                         e.getEffectiveStatus(),
-                        e.getEnrolledAt(),
+                        e.getProgressRate(),
                         e.getExpiredAt(),
-                        0  // 진행률은 learning_activity 도메인 연동 전까지 0
+                        e.getCreatedAt()
                 ))
                 .toList();
     }

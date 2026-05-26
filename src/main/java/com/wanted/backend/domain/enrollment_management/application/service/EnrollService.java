@@ -10,8 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Clock;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +18,6 @@ import java.time.Instant;
 public class EnrollService implements EnrollUseCase {
 
     private final EnrollmentRepository enrollmentRepository;
-    private final Clock clock;
 
     @Override
     public Long handle(EnrollCommand command) {
@@ -28,7 +26,7 @@ public class EnrollService implements EnrollUseCase {
             throw new BusinessException(ErrorCode.ENROLLMENT_ALREADY_EXISTS);
         }
 
-        Enrollment enrollment = Enrollment.create(command.userId(), command.courseId(), Instant.now(clock));
+        Enrollment enrollment = Enrollment.create(command.userId(), command.courseId(), command.paymentType(), LocalDateTime.now());
         return enrollmentRepository.save(enrollment).getId();
     }
 }

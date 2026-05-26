@@ -5,9 +5,11 @@ import jakarta.validation.constraints.NotNull;
 
 public record EnrollRequest(
         @NotNull(message = "강의 ID는 필수입니다.")
-        Long courseId
+        Long courseId,
+        @NotNull(message = "결제 유형은 필수입니다.")
+        String paymentType
 ) {
     public EnrollCommand toCommand(Long userId) {
-        return new EnrollCommand(userId, courseId);
+        return new EnrollCommand(userId, courseId, paymentType);
     }
 }

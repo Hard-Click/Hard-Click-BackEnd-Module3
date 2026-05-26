@@ -3,7 +3,7 @@ package com.wanted.backend.domain.enrollment_management.presentation.api.respons
 import com.wanted.backend.domain.enrollment_management.application.dto.MyEnrollmentResult;
 import com.wanted.backend.domain.enrollment_management.domain.model.EnrollmentStatus;
 
-import java.time.Instant;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,9 +12,9 @@ public record MyEnrollmentResponse(
         Long courseId,
         String courseTitle,
         EnrollmentStatus status,
-        Instant enrolledAt,
+        BigDecimal progressRate,
         LocalDateTime expiredAt,
-        int progressPercent
+        LocalDateTime createdAt
 ) {
     public static MyEnrollmentResponse from(MyEnrollmentResult result) {
         return new MyEnrollmentResponse(
@@ -22,9 +22,9 @@ public record MyEnrollmentResponse(
                 result.courseId(),
                 result.courseTitle(),
                 result.status(),
-                result.enrolledAt(),
+                result.progressRate(),
                 result.expiredAt(),
-                result.progressPercent()
+                result.createdAt()
         );
     }
 
