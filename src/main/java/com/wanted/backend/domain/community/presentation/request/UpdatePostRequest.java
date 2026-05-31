@@ -3,6 +3,8 @@ package com.wanted.backend.domain.community.presentation.request;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
+
 
 public record UpdatePostRequest(
 
@@ -13,7 +15,10 @@ public record UpdatePostRequest(
         String title,
 
         @NotBlank(message = "내용은 필수입니다.")
-        String content
+        String content,
+
+        // 수정 시 유지할 기존 첨부 이미지 URL 목록 (null/빈 목록이면 기존 전부 삭제)
+        List<String> keepFileUrls
 ) {
 
 }

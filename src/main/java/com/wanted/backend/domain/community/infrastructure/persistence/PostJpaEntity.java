@@ -55,6 +55,14 @@ public class PostJpaEntity {
         this.viewCount = viewCount;
     }
 
+    // 게시글 수정 (제목/내용/과목/수정시각)
+    public void update(Long subjectId, String title, String content, LocalDateTime updatedAt) {
+        this.subjectId = subjectId;
+        this.title = title;
+        this.content = content;
+        this.updatedAt = updatedAt;
+    }
+
     public PostJpaEntity(Long authorId, BoardType boardType, Long subjectId,
                          String title, String content, int viewCount,
                          boolean isAccepted, LocalDateTime createdAt, LocalDateTime updatedAt) {

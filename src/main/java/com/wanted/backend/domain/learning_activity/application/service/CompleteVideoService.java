@@ -38,7 +38,12 @@ public class CompleteVideoService implements CompleteVideoUseCase {
         VideoProgress progress = videoProgressRepository.findByMemberIdAndVideoId(memberId, videoId)
                 .orElse(VideoProgress.empty(memberId, accessInfo.courseId(), videoId));
 
-        if (!videoCompletionPolicy.canComplete(progress.watchTimeSec(), accessInfo.durationSeconds())) {
+        // 완료 기준: 실제 누적 시청 시간과 마지막 재생 위치 중 큰 값 (끝까지 도달해도 완료 인정)
+        int watch = progress.watchTimeSec() != null ? progress.watchTimeSec() : 0;
+        int position = progress.lastPositionSec() != null ? progress.lastPositionSec() : 0;
+        int effectiveSec = Math.max(watch, position);
+
+        if (!videoCompletionPolicy.canComplete(effectiveSec, accessInfo.durationSeconds())) {
             throw new BusinessException(ErrorCode.VIDEO_COMPLETION_CONDITION_NOT_MET);
         }
 

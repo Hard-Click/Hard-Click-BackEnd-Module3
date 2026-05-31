@@ -66,7 +66,11 @@ public class SecurityConfig {
                                 "/v3/api-docs/**"
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET, "/uploads/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/courses", "/api/courses/*","/api/courses/*/reviews").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/community/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/identity/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/courses", "/api/courses/*", "/api/courses/*/reviews").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/subjects").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/notices", "/api/notices/*").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/courses").hasRole("INSTRUCTOR")
                         .requestMatchers(HttpMethod.PATCH, "/api/courses/*", "/api/courses/*/status").hasRole("INSTRUCTOR")
                         .requestMatchers(HttpMethod.DELETE, "/api/courses/*").hasRole("INSTRUCTOR")

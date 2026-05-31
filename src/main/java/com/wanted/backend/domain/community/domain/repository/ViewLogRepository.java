@@ -10,4 +10,6 @@ public interface ViewLogRepository {
 
     boolean existsByMemberIdAndPostIdAndViewedAtAfter(
             Long memberId, Long postId, LocalDateTime after);
+
+    void deleteByPostId(Long postId);
 }

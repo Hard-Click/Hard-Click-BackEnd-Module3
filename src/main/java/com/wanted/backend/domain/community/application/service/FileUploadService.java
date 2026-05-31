@@ -34,6 +34,9 @@ public class FileUploadService implements FileUploadUseCase {
     @Value("${community.image.max-size}")
     private long maxFileSize;
 
+    private static final String THUMBNAIL_DIR = "uploads/thumbnails/";
+    private static final String THUMBNAIL_URL = "http://localhost:8080/uploads/thumbnails/";
+
     private final UploadedFileRepository uploadedFileRepository;
 
     public FileUploadService(UploadedFileRepository uploadedFileRepository) {
@@ -44,8 +47,18 @@ public class FileUploadService implements FileUploadUseCase {
     public FileUploadResponse handle(FileUploadCommand command) {
 
 
-        String uploadDir = command.fileType().equals("POST") ? postDir : commentDir;
-        String baseUrl = command.fileType().equals("POST") ? postUrl : commentUrl;
+        String uploadDir;
+        String baseUrl;
+        if (command.fileType().equals("COURSE_THUMBNAIL")) {
+            uploadDir = THUMBNAIL_DIR;
+            baseUrl = THUMBNAIL_URL;
+        } else if (command.fileType().equals("POST")) {
+            uploadDir = postDir;
+            baseUrl = postUrl;
+        } else {
+            uploadDir = commentDir;
+            baseUrl = commentUrl;
+        }
 
         String savedFileName = null;
 

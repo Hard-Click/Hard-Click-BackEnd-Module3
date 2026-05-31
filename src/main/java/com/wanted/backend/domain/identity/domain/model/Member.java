@@ -159,7 +159,7 @@ public class Member {
         this.status = MemberStatus.WITHDRAWN;
         this.email = "withdrawn_" + this.id + "_" + suffix + "@deleted.local";
         this.username = "wd_" + this.id;
-        this.phoneNumber = null;
+        this.phoneNumber = "000-0000-0000";  // NOT NULL 제약 — 탈퇴 익명화 placeholder
         this.updatedAt = now;
     }
 

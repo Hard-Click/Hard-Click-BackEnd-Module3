@@ -36,4 +36,9 @@ public class ViewLogRepositoryAdapter implements ViewLogRepository {
         return repository.existsByMemberIdAndPostIdAndViewedAtAfter(
                 memberId, postId, after);
     }
+
+    @Override
+    public void deleteByPostId(Long postId) {
+        repository.deleteByPostId(postId);
+    }
 }

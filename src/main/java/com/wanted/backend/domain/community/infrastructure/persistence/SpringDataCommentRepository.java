@@ -22,4 +22,9 @@ public interface SpringDataCommentRepository
 
     List<CommentJpaEntity> findByAuthorIdAndIsDeletedFalseOrderByCreatedAtDesc(Long authorId);
 
+    // 자기참조 FK(parent_id) 때문에 대댓글(parentId != null) 먼저 삭제 후 원댓글 삭제
+    void deleteByPostIdAndParentIdIsNotNull(Long postId);
+
+    void deleteByPostIdAndParentIdIsNull(Long postId);
+
 }

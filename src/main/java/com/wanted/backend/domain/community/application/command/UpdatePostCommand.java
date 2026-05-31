@@ -9,7 +9,8 @@ public record UpdatePostCommand(
         Long subjectId,
         String title,
         String content,
-        List<MultipartFile> files
+        List<MultipartFile> files,
+        List<String> keepFileUrls
 ) {
 
 }

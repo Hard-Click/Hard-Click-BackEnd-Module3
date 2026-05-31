@@ -102,5 +102,12 @@ public class CommentRepositoryAdapter implements CommentRepository {
         repository.deleteById(commentId);
     }
 
+    @Override
+    public void deleteByPostId(Long postId) {
+        // 자기참조 FK(parent_id) 위반 방지: 대댓글 먼저 → 원댓글 순으로 삭제
+        repository.deleteByPostIdAndParentIdIsNotNull(postId);
+        repository.deleteByPostIdAndParentIdIsNull(postId);
+    }
+
 
 }

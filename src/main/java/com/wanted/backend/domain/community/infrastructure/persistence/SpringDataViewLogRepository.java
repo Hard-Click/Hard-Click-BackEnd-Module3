@@ -9,4 +9,6 @@ public interface SpringDataViewLogRepository
 
     boolean existsByMemberIdAndPostIdAndViewedAtAfter(
             Long memberId, Long postId, LocalDateTime after);
+
+    void deleteByPostId(Long postId);
 }

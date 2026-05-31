@@ -25,6 +25,14 @@ public class PostRepositoryAdapter implements PostRepository {
 
     @Override
     public Post save(Post post) {
+        // ID가 있으면 기존 게시글 수정(UPDATE), 없으면 신규 등록(INSERT)
+        if (post.getId() != null) {
+            PostJpaEntity entity = repository.findById(post.getId())
+                    .orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다: " + post.getId()));
+            entity.update(post.getSubjectId(), post.getTitle(), post.getContent(), post.getUpdatedAt());
+            return toDomain(repository.save(entity));
+        }
+
         PostJpaEntity entity = new PostJpaEntity(
                 post.getAuthorId(), post.getBoardType(), post.getSubjectId(),
                 post.getTitle(), post.getContent(), post.getViewCount(),
@@ -36,7 +44,7 @@ public class PostRepositoryAdapter implements PostRepository {
     @Override
     public List<Post> findByBoardType(BoardType boardType, PostSortType sort,
                                       String keyword, int page, int size) {
-        Pageable pageable = PageRequest.of(page - 1, size, toSort(sort));
+        Pageable pageable = PageRequest.of(page, size, toSort(sort));
         return repository.findByBoardTypeAndTitleContainingAndStatus(
                         boardType, keyword != null ? keyword : "", PostStatus.ACTIVE, pageable)
                 .stream()
@@ -46,7 +54,7 @@ public class PostRepositoryAdapter implements PostRepository {
 
     @Override
     public List<Post> findAll(PostSortType sort, String keyword, int page, int size) {
-        Pageable pageable = PageRequest.of(page - 1, size, toSort(sort));
+        Pageable pageable = PageRequest.of(page, size, toSort(sort));
         return repository.findByTitleContainingAndStatus(
                         keyword != null ? keyword : "", PostStatus.ACTIVE, pageable)
                 .stream()

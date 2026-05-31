@@ -29,4 +29,7 @@ public interface CommentRepository {
     // Hard Delete
     void deleteById(Long commentId);
 
+    // 게시글 삭제 시 해당 게시글의 모든 댓글 삭제
+    void deleteByPostId(Long postId);
+
 }
